@@ -1,11 +1,13 @@
 import { useState } from "react";
 import FoodList from "./components/FoodList";
 import mockItems from "./mock.json";
+import Modal from "./components/Modal";
 
 function App() {
   const [order, setOrder] = useState("createdAt");
   const [items, setItems] = useState(mockItems);
   const [keyword, setKeyword] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   const resultItems = items
     .sort((a, b) => b[order] - a[order])
@@ -24,6 +26,10 @@ function App() {
       ></input>
       <button onClick={() => setOrder("createdAt")}>최신순</button>
       <button onClick={() => setOrder("calorie")}>칼로리순</button>
+      <button onClick={() => setIsOpen(true)}>음식 추가하기</button>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        음식 추가 모달
+      </Modal>
       <FoodList items={resultItems} onDelete={onDelete} />
     </div>
   );
