@@ -1,5 +1,5 @@
-function FoodListItem({ item }) {
-  const { imgUrl, title, content, calorie } = item;
+function FoodListItem({ item, onDelete }) {
+  const { id, imgUrl, title, content, calorie } = item;
   const dateString = new Date(item.createdAt).toLocaleDateString();
 
   return (
@@ -10,6 +10,7 @@ function FoodListItem({ item }) {
         <p>{content}</p>
         <p>{dateString}</p>
         <p>{calorie}</p>
+        <button onClick={() => onDelete(id)}>삭제</button>
       </div>
     </div>
   );
