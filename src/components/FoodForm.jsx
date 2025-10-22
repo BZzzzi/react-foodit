@@ -1,6 +1,13 @@
 import { useEffect, useRef } from "react";
 
-function EditFoodForm({ food, onSubmit }) {
+function FoodForm({
+  food = {
+    title: "",
+    content: "",
+    calorie: 0,
+  },
+  onSubmit,
+}) {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -40,4 +47,4 @@ function EditFoodForm({ food, onSubmit }) {
   );
 }
 
-export default EditFoodForm;
+export default FoodForm;

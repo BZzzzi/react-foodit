@@ -2,7 +2,7 @@ import { useState } from "react";
 import FoodList from "./components/FoodList";
 import mockItems from "./mock.json";
 import Modal from "./components/Modal";
-import CreateFoodForm from "./components/CreateFoodForm";
+import FoodForm from "./components/FoodForm";
 import catImg from "./asset/cat.jpg";
 
 function App() {
@@ -63,7 +63,7 @@ function App() {
       <button onClick={() => setOrder("calorie")}>칼로리순</button>
       <button onClick={() => setIsOpen(true)}>음식 추가하기</button>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <CreateFoodForm onCreate={onCreate} />
+        <FoodForm onSubmit={onCreate} />
       </Modal>
       <FoodList items={resultItems} onUpdate={onUpdate} onDelete={onDelete} />
     </div>

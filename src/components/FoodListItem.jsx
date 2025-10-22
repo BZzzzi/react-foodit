@@ -1,6 +1,6 @@
 import Modal from "./Modal";
 import styles from "./FoodListItem.module.css/";
-import EditFoodForm from "./EditFoodForm";
+import FoodForm from "./FoodForm";
 import { useState } from "react";
 
 function FoodListItem({ item, onUpdate, onDelete }) {
@@ -18,7 +18,7 @@ function FoodListItem({ item, onUpdate, onDelete }) {
         <p>{calorie}</p>
         <button onClick={() => setIsOpen(true)}>수정</button>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <EditFoodForm
+          <FoodForm
             food={item}
             onSubmit={(data) => {
               onUpdate(item.id, data);
