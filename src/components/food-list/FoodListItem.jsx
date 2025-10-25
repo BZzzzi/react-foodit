@@ -1,6 +1,6 @@
-import Modal from "./Modal";
+import Modal from "../modal/Modal";
 import styles from "./FoodListItem.module.css/";
-import FoodForm from "./FoodForm";
+import FoodForm from "../modal/FoodForm";
 import { useState } from "react";
 
 function FoodListItem({ item, onUpdate, onDelete }) {
