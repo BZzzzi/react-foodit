@@ -3,8 +3,10 @@ import styles from "./FoodList.module.css";
 import { useState } from "react";
 import moreView from "../../asset/more-view-green.svg";
 import Button from "../common/Button";
+import useTranslate from "../../hooks/useTranslate";
 
 function FoodList({ items, onUpdate, onDelete }) {
+  const t = useTranslate();
   const [visibleCount, setVisibleCount] = useState(7);
   const showItems = items.slice(0, visibleCount);
 
@@ -24,7 +26,7 @@ function FoodList({ items, onUpdate, onDelete }) {
             onClick={() => setVisibleCount(visibleCount + 7)}
             className={styles.button}
           >
-            더보기 <img src={moreView} />
+            {t("load more")} <img src={moreView} />
           </Button>
         </div>
       )}

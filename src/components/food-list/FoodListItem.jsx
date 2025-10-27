@@ -3,8 +3,10 @@ import styles from "./FoodListItem.module.css/";
 import FoodForm from "../modal/FoodForm";
 import { useState } from "react";
 import Button from "../common/Button";
+import useTranslate from "../../hooks/useTranslate";
 
 function FoodListItem({ item, onUpdate, onDelete }) {
+  const t = useTranslate();
   const { id, imgUrl, title, content, calorie } = item;
   const dateString = new Date(item.createdAt).toLocaleDateString();
   const [isOpen, setIsOpen] = useState(false);
@@ -22,10 +24,10 @@ function FoodListItem({ item, onUpdate, onDelete }) {
           <p>{dateString}</p>
           <div className={styles.buttonLayout}>
             <Button variant="confirm" onClick={() => setIsOpen(true)}>
-              수정
+              {t("edit button")}
             </Button>
             <Modal
-              title="칼로리 수정하기"
+              title={t("edit calorie title")}
               isOpen={isOpen}
               onClose={() => setIsOpen(false)}
             >
@@ -38,7 +40,7 @@ function FoodListItem({ item, onUpdate, onDelete }) {
               />
             </Modal>
             <Button variant="danger" onClick={() => onDelete(id)}>
-              삭제
+              {t("delete button")}
             </Button>
           </div>
         </div>

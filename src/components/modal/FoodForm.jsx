@@ -4,6 +4,7 @@ import Textarea from "../common/Textarea";
 import Input from "../common/Input";
 import styles from "./FoodForm.module.css";
 import formPlaceholder from "../../asset/form-placeholder.svg";
+import useTranslate from "../../hooks/useTranslate";
 
 function FoodForm({
   food = {
@@ -14,6 +15,7 @@ function FoodForm({
   },
   onSubmit,
 }) {
+  const t = useTranslate();
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -38,25 +40,25 @@ function FoodForm({
               <Input
                 name="title"
                 defaultValue={food.title}
-                placeholder="이름을 입력하세요."
+                placeholder={t("food title placeholder")}
                 ref={inputRef}
               />
               <Input
                 type="number"
                 name="calorie"
                 defaultValue={food.calorie}
-                placeholder="칼로리 (Kcal)"
+                placeholder={t("food calorie placeholder")}
               />
             </div>
             <Textarea
               name="content"
               defaultValue={food.content}
-              placeholder="내용을 작성해 주세요."
+              placeholder={t("food content placeholder")}
             />
           </div>
         </div>
         <div className={styles.buttonLayout}>
-          <Button>작성</Button>
+          <Button>{t("submit button")}</Button>
         </div>
       </form>
     </div>

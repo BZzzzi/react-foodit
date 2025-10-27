@@ -8,8 +8,10 @@ import Layout from "./components/Layout";
 import styles from "./App.module.css";
 import Button from "./components/common/Button";
 import Input from "./components/common/Input";
+import useTranslate from "./hooks/useTranslate";
 
 function App() {
+  const t = useTranslate();
   const [order, setOrder] = useState("createdAt");
   const [items, setItems] = useState(mockItems);
   const [keyword, setKeyword] = useState("");
@@ -57,47 +59,55 @@ function App() {
   };
 
   return (
-    <Layout>
-      <div className={styles.layout}>
-        <header className={styles.mainHeader}>
-          <div className={styles.searchInputBox}>
-            <Input
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              placeholder="검색어를 입력하세요"
-              className={styles.input}
-            />
-            {/* TODO: 검색 기능 보완 */}
-            {/* <img src={search} alt="검색" className={styles.searchIcon} /> */}
-          </div>
-          <div className={styles.buttonLayout}>
-            <Button
-              variant={order === "createdAt" ? "ghostPrimary" : "ghostSecond"}
-              buttonDeco={true}
-              onClick={() => setOrder("createdAt")}
-            >
-              최신순
-            </Button>
-            <Button
-              variant={order === "calorie" ? "ghostPrimary" : "ghostSecond"}
-              buttonDeco={true}
-              onClick={() => setOrder("calorie")}
-            >
-              칼로리순
-            </Button>
-            <Button onClick={() => setIsOpen(true)}>추가하기</Button>
-            <Modal
-              isOpen={isOpen}
-              onClose={() => setIsOpen(false)}
-              title="칼로리 기록하기"
-            >
-              <FoodForm onSubmit={onCreate} />
-            </Modal>
-          </div>
-        </header>
-        <FoodList items={resultItems} onUpdate={onUpdate} onDelete={onDelete} />
-      </div>
-    </Layout>
+    <>
+      <Layout>
+        <div className={styles.layout}>
+          <header className={styles.mainHeader}>
+            <div className={styles.searchInputBox}>
+              <Input
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                placeholder={t("search keyword placeholder")}
+                className={styles.input}
+              />
+              {/* TODO: 검색 기능 보완 */}
+              {/* <img src={search} alt="검색" className={styles.searchIcon} /> */}
+            </div>
+            <div className={styles.buttonLayout}>
+              <Button
+                variant={order === "createdAt" ? "ghostPrimary" : "ghostSecond"}
+                buttonDeco={true}
+                onClick={() => setOrder("createdAt")}
+              >
+                {t("sort by latest")}
+              </Button>
+              <Button
+                variant={order === "calorie" ? "ghostPrimary" : "ghostSecond"}
+                buttonDeco={true}
+                onClick={() => setOrder("calorie")}
+              >
+                {t("sort by calorie")}
+              </Button>
+              <Button onClick={() => setIsOpen(true)}>
+                {t("create button")}
+              </Button>
+              <Modal
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                title={t("create calorie title")}
+              >
+                <FoodForm onSubmit={onCreate} />
+              </Modal>
+            </div>
+          </header>
+          <FoodList
+            items={resultItems}
+            onUpdate={onUpdate}
+            onDelete={onDelete}
+          />
+        </div>
+      </Layout>
+    </>
   );
 }
 

@@ -1,0 +1,10 @@
+.select {
+  border: 1px solid #dae7e3;
+  border-radius: 6px;
+  padding: 8px;
+  outline: none;
+}
+
+.select:focus {
+  border-color: #2c9631;
+}
