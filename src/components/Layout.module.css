@@ -1,0 +1,52 @@
+/* 
+
+사이트 공통 CSS 
+
+*/
+.siteBg {
+  background-color: #f9fbf9;
+  background-image: url("../asset/main-bg.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+/* 
+
+사이트 Header 
+
+*/
+.siteHeader {
+  background-color: #ffffff;
+}
+
+.siteHeaderLayout {
+  max-width: 1000px;
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(89, 118, 96, 0.05);
+  margin: 0 auto;
+}
+/* 
+
+사이트 Footer 
+
+*/
+.siteFooter {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.siteFooterLayout {
+  max-width: 1000px;
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+.siteFooterLayout p {
+  font-size: 14px;
+}

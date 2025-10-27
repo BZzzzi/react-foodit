@@ -2,6 +2,7 @@ import Modal from "../modal/Modal";
 import styles from "./FoodListItem.module.css/";
 import FoodForm from "../modal/FoodForm";
 import { useState } from "react";
+import Button from "../common/Button";
 
 function FoodListItem({ item, onUpdate, onDelete }) {
   const { id, imgUrl, title, content, calorie } = item;
@@ -9,24 +10,38 @@ function FoodListItem({ item, onUpdate, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={styles.item}>
+    <div className={styles.itemLayout}>
       <img className={styles.image} src={imgUrl} alt={title} />
-      <div>
-        <h2>{title}</h2>
+      <div className={styles.itemContentsLayout}>
+        <div>
+          <h2>{title}</h2>
+          <p>{calorie}KCal</p>
+        </div>
         <p>{content}</p>
-        <p>{dateString}</p>
-        <p>{calorie}</p>
-        <button onClick={() => setIsOpen(true)}>수정</button>
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <FoodForm
-            food={item}
-            onSubmit={(data) => {
-              onUpdate(item.id, data);
-              setIsOpen(false);
-            }}
-          />
-        </Modal>
-        <button onClick={() => onDelete(id)}>삭제</button>
+        <div className={styles.boxBottomLayout}>
+          <p>{dateString}</p>
+          <div className={styles.buttonLayout}>
+            <Button variant="confirm" onClick={() => setIsOpen(true)}>
+              수정
+            </Button>
+            <Modal
+              title="칼로리 수정하기"
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+            >
+              <FoodForm
+                food={item}
+                onSubmit={(data) => {
+                  onUpdate(item.id, data);
+                  setIsOpen(false);
+                }}
+              />
+            </Modal>
+            <Button variant="danger" onClick={() => onDelete(id)}>
+              삭제
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,31 @@
+.layout {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.mainHeader {
+  display: grid;
+  grid-template-areas: "l . r";
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 60px 0 30px 0;
+}
+
+.searchInputBox {
+  position: relative;
+  grid-area: l;
+}
+
+.input {
+  width: 100%;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 0;
+}
+
+.buttonLayout {
+  display: flex;
+  justify-content: space-between;
+  grid-area: r;
+}

@@ -1,9 +1,13 @@
 import { useState } from "react";
-import FoodList from "./components/FoodList";
+import FoodList from "./components/food-list/FoodList";
 import mockItems from "./mock.json";
-import Modal from "./components/Modal";
-import FoodForm from "./components/FoodForm";
-import catImg from "./asset/cat.jpg";
+import Modal from "./components/modal/Modal";
+import FoodForm from "./components/modal/FoodForm";
+import search from "./asset/search-green.svg";
+import Layout from "./components/Layout";
+import styles from "./App.module.css";
+import Button from "./components/common/Button";
+import Input from "./components/common/Input";
 
 function App() {
   const [order, setOrder] = useState("createdAt");
@@ -19,7 +23,6 @@ function App() {
     const now = new Date();
     const newItem = {
       id: items.length + 1,
-      imgUrl: catImg,
       ...data,
       createdAt: now.valueOf(),
       updatedAt: now.valueOf(),
@@ -54,19 +57,47 @@ function App() {
   };
 
   return (
-    <div>
-      <input
-        value={keyword}
-        onChange={(e) => setKeyword(e.target.value)}
-      ></input>
-      <button onClick={() => setOrder("createdAt")}>최신순</button>
-      <button onClick={() => setOrder("calorie")}>칼로리순</button>
-      <button onClick={() => setIsOpen(true)}>음식 추가하기</button>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <FoodForm onSubmit={onCreate} />
-      </Modal>
-      <FoodList items={resultItems} onUpdate={onUpdate} onDelete={onDelete} />
-    </div>
+    <Layout>
+      <div className={styles.layout}>
+        <header className={styles.mainHeader}>
+          <div className={styles.searchInputBox}>
+            <Input
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              placeholder="검색어를 입력하세요"
+              className={styles.input}
+            />
+            {/* TODO: 검색 기능 보완 */}
+            {/* <img src={search} alt="검색" className={styles.searchIcon} /> */}
+          </div>
+          <div className={styles.buttonLayout}>
+            <Button
+              variant={order === "createdAt" ? "ghostPrimary" : "ghostSecond"}
+              buttonDeco={true}
+              onClick={() => setOrder("createdAt")}
+            >
+              최신순
+            </Button>
+            <Button
+              variant={order === "calorie" ? "ghostPrimary" : "ghostSecond"}
+              buttonDeco={true}
+              onClick={() => setOrder("calorie")}
+            >
+              칼로리순
+            </Button>
+            <Button onClick={() => setIsOpen(true)}>추가하기</Button>
+            <Modal
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+              title="칼로리 기록하기"
+            >
+              <FoodForm onSubmit={onCreate} />
+            </Modal>
+          </div>
+        </header>
+        <FoodList items={resultItems} onUpdate={onUpdate} onDelete={onDelete} />
+      </div>
+    </Layout>
   );
 }
 

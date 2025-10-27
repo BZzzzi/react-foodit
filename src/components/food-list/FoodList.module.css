@@ -1,0 +1,27 @@
+.listLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.listBox {
+  width: 100%;
+  border-radius: 15px;
+  padding: 22px;
+  background-color: #ffffff;
+}
+
+.showMoreLayout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  background-color: #f2f6f2;
+  padding: 20px 0;
+  margin: 30px 0;
+}
+
+.button {
+  font-size: 18px;
+}
