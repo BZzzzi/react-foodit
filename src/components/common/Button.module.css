@@ -1,0 +1,62 @@
+.button {
+  border: none;
+  cursor: pointer;
+}
+
+.buttonDeco {
+  display: none;
+}
+
+.buttonLayout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.primary {
+  border-radius: 6px;
+  padding: 15px 30px;
+  background-color: #2c9631;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.ghostPrimary {
+  background-color: transparent;
+  color: #2c9631;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.button.ghostPrimary .buttonDeco {
+  display: block;
+}
+
+.ghostSecond {
+  background-color: transparent;
+  color: #2b302f;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.confirm {
+  border: 1px solid #c8dad4;
+  border-radius: 5px;
+  padding: 6px 12px;
+  background-color: #ffffff;
+  color: #7f8e89;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.danger {
+  border: 1px solid #e5cdcd;
+  border-radius: 5px;
+  padding: 6px 12px;
+  background-color: #ffffff;
+  color: #b18181;
+  font-size: 12px;
+  font-weight: 400;
+}
