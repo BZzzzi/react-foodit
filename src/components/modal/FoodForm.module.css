@@ -1,0 +1,41 @@
+.formLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.formLayout img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #dae7e3;
+  border-radius: 11px;
+}
+
+.contentsLayout {
+  display: flex;
+  gap: 12px;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contents div {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+
+.contents Textarea {
+  flex-grow: 1;
+}
+
+.formLayout .buttonLayout {
+  display: flex;
+  justify-content: end;
+}
