@@ -5,25 +5,24 @@ import moreView from "../../asset/more-view-green.svg";
 import Button from "../common/Button";
 import useTranslate from "../../hooks/useTranslate";
 
-function FoodList({ items, onUpdate, onDelete }) {
+function FoodList({ items, onUpdate, onDelete, cursor, onLoadMore }) {
   const t = useTranslate();
-  const [visibleCount, setVisibleCount] = useState(7);
-  const showItems = items.slice(0, visibleCount);
 
   return (
     <div>
       <ul className={styles.listLayout}>
-        {showItems.map((it) => (
+        {items.map((it) => (
           <li key={it.id} className={styles.listBox}>
             <FoodListItem item={it} onUpdate={onUpdate} onDelete={onDelete} />
           </li>
         ))}
       </ul>
-      {visibleCount < items.length && (
+
+      {cursor && (
         <div className={styles.showMoreLayout}>
           <Button
             variant="ghostPrimary"
-            onClick={() => setVisibleCount(visibleCount + 7)}
+            onClick={() => onLoadMore()}
             className={styles.button}
           >
             {t("load more")} <img src={moreView} />

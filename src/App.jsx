@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FoodList from "./components/food-list/FoodList";
-import mockItems from "./mock.json";
 import Modal from "./components/modal/Modal";
 import FoodForm from "./components/modal/FoodForm";
 import search from "./asset/search-green.svg";
@@ -9,54 +8,75 @@ import styles from "./App.module.css";
 import Button from "./components/common/Button";
 import Input from "./components/common/Input";
 import useTranslate from "./hooks/useTranslate";
+import axios from "./utils/axios";
+
+const LIMIT = 10;
 
 function App() {
   const t = useTranslate();
   const [order, setOrder] = useState("createdAt");
-  const [items, setItems] = useState(mockItems);
-  const [keyword, setKeyword] = useState("");
+  const [items, setItems] = useState([]);
+  const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [cursor, setCursor] = useState();
 
-  const resultItems = items
-    .sort((a, b) => b[order] - a[order])
-    .filter((it) => it.title.includes(keyword) || it.content.includes(keyword));
+  const handleLoad = async (orderParam, searchParam) => {
+    const res = await axios.get("/foods", {
+      params: {
+        order: orderParam,
+        search: searchParam,
+        limit: LIMIT,
+      },
+    });
 
-  const onCreate = (data) => {
-    const now = new Date();
-    const newItem = {
-      id: items.length + 1,
-      ...data,
-      createdAt: now.valueOf(),
-      updatedAt: now.valueOf(),
-    };
+    const { foods, paging } = res.data;
+    setItems(foods);
+    setCursor(paging.nextCursor);
+  };
 
-    setItems([newItem, ...items]);
+  const handleLoadMore = async () => {
+    const res = await axios.get("/foods", {
+      params: {
+        order,
+        search,
+        limit: LIMIT,
+        cursor,
+      },
+    });
+
+    const { foods, paging } = res.data;
+    setItems((prevItems) => [...prevItems, ...foods]);
+    setCursor(paging.nextCursor);
+  };
+
+  const onCreate = async (data) => {
+    const res = await axios.post("/foods", data);
+    const { food } = res.data;
+    setItems((prevItems) => [food, ...prevItems]);
     setIsOpen(false);
   };
 
-  const onUpdate = (id, data) => {
-    const index = items.findIndex((item) => item.id === id);
-    const now = new Date();
-
-    const newItem = {
-      ...items[index],
-      ...data,
-      updatedAt: now.valueOf(),
-    };
-
-    const newItems = [
-      ...items.slice(0, index),
-      newItem,
-      ...items.slice(index + 1),
-    ];
-
-    setItems(newItems);
+  const onUpdate = async (id, data) => {
+    const res = await axios.patch(`/foods/${id}`, data);
+    const { food } = res.data;
+    setItems((prevItems) => {
+      const index = prevItems.findIndex((item) => item.id === id);
+      return [
+        ...prevItems.slice(0, index),
+        food,
+        ...prevItems.slice(index + 1),
+      ];
+    });
   };
 
-  const onDelete = (id) => {
-    const nextItems = items.filter((item) => item.id !== id);
-    setItems(nextItems);
+  const onDelete = async (id) => {
+    await axios.delete(`/foods/${id}`);
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
+
+  useEffect(() => {
+    handleLoad(order, search);
+  }, [order, search]);
 
   return (
     <>
@@ -65,8 +85,8 @@ function App() {
           <header className={styles.mainHeader}>
             <div className={styles.searchInputBox}>
               <Input
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 placeholder={t("search keyword placeholder")}
                 className={styles.input}
               />
@@ -101,9 +121,11 @@ function App() {
             </div>
           </header>
           <FoodList
-            items={resultItems}
+            items={items}
             onUpdate={onUpdate}
             onDelete={onDelete}
+            cursor={cursor}
+            onLoadMore={handleLoadMore}
           />
         </div>
       </Layout>

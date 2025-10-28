@@ -4,6 +4,7 @@ import FoodForm from "../modal/FoodForm";
 import { useState } from "react";
 import Button from "../common/Button";
 import useTranslate from "../../hooks/useTranslate";
+import formPlaceholder from "../../asset/form-placeholder.svg";
 
 function FoodListItem({ item, onUpdate, onDelete }) {
   const t = useTranslate();
@@ -13,7 +14,11 @@ function FoodListItem({ item, onUpdate, onDelete }) {
 
   return (
     <div className={styles.itemLayout}>
-      <img className={styles.image} src={imgUrl} alt={title} />
+      <img
+        className={styles.image}
+        src={imgUrl ? imgUrl : formPlaceholder}
+        alt={title}
+      />
       <div className={styles.itemContentsLayout}>
         <div>
           <h2>{title}</h2>
