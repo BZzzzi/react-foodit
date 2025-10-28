@@ -1,0 +1,27 @@
+.imageContain {
+  position: relative;
+}
+
+.image {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #dae7e3;
+  border-radius: 11px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.imageContain:has(.button) > .image {
+  opacity: 0.5;
+  cursor: auto;
+}
+
+.button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+}
+
+.button img {
+  width: 30px;
+}

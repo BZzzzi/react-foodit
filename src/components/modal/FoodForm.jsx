@@ -3,13 +3,13 @@ import Button from "../common/Button";
 import Textarea from "../common/Textarea";
 import Input from "../common/Input";
 import styles from "./FoodForm.module.css";
-import formPlaceholder from "../../asset/form-placeholder.svg";
 import useTranslate from "../../hooks/useTranslate";
+import FileInput from "../common/FileInput";
 
 function FoodForm({
   food = {
     title: "",
-    imgUrl: formPlaceholder,
+    imgUrl: "",
     content: "",
     calorie: "",
   },
@@ -24,17 +24,11 @@ function FoodForm({
     }
   }, []);
 
-  const submit = (formData) => {
-    const data = Object.fromEntries(formData.entries());
-    onSubmit(data);
-  };
-
   return (
     <div>
-      <form action={submit} className={styles.formLayout}>
+      <form action={onSubmit} className={styles.formLayout}>
         <div className={styles.contentsLayout}>
-          <img src={formPlaceholder} alt="음식 추가 이미지" />
-          <Input type="hidden" name="imgUrl" defaultValue={food.imgUrl} />
+          <FileInput name="imgFile" initialPreview={food.imgUrl} />
           <div className={styles.contents}>
             <div>
               <Input

@@ -10,7 +10,7 @@ function Modal({ isOpen, onClose, title, children }) {
   return createPortal(
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <div>
+        <div className={styles.modalTitle}>
           <h1>{title}</h1>
           <img src={closeImg} onClick={onClose} />
         </div>

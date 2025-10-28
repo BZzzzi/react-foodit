@@ -22,7 +22,7 @@ const dict = {
     // 입력 필드 플레이스 홀더
     "search keyword placeholder": "검색어를 입력해 주세요.",
     "food title placeholder": "제목을 입력해 주세요.",
-    "food calorie placeholder": "칼로리를 입력해 주세요.",
+    "food calorie placeholder": "칼로리 (KCal)",
     "food content placeholder": "내용을 입력해 주세요.",
 
     // 언어 선택

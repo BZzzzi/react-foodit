@@ -16,12 +16,12 @@
   padding: 32px;
 }
 
-.modal div {
+.modalTitle {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-.modal div img {
+.modalTitle img {
   cursor: pointer;
 }
